@@ -1,0 +1,40 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xenvironment3samples.example.crossplane.io
+spec:
+  defaultCompositionRef:
+    name: environment-3-sample
+  group: example.crossplane.io
+  claimNames:
+    kind: Environment3Sample
+    plural: environment3samples
+  names:
+    kind: XEnvironment3Sample
+    plural: xenvironment3samples
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              vpcName:
+                type: string
+              environmentConfig:
+                type: string
+            required:
+            - vpcName
+            - environmentConfig
+          status:
+            description: A Status represents the observed state of this installation.
+            properties:
+              status:
+                description: Freeform field containing information about the configuration of this Setup.
+                type: object
+                x-kubernetes-preserve-unknown-fields: true
+            type: object
